@@ -10,6 +10,10 @@
 *.userosscache
 *.sln.docstates
 
+discord/
+discord_game_sdk.dll
+discord_game_sdk.dll.lib
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
