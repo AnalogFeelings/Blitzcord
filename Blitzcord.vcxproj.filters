@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="discord\achievement_manager.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\activity_manager.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\application_manager.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\core.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\image_manager.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\lobby_manager.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\network_manager.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\overlay_manager.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\relationship_manager.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\storage_manager.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\store_manager.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\types.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\user_manager.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+    <ClCompile Include="discord\voice_manager.cpp">
+      <Filter>discord</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="discord\achievement_manager.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\activity_manager.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\application_manager.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\core.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\discord.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\event.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\ffi.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\image_manager.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\lobby_manager.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\network_manager.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\overlay_manager.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\relationship_manager.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\storage_manager.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\store_manager.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\types.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\user_manager.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="discord\voice_manager.h">
+      <Filter>discord</Filter>
+    </ClInclude>
+    <ClInclude Include="Blitzcord.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="discord">
+      <UniqueIdentifier>{4fdf81c8-e8ac-4a80-b1c1-df3fd1cfe89f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
