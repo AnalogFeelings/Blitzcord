@@ -1,5 +1,8 @@
 #include "Blitzcord.h"
 
+discord::Core* core{};
+discord::Activity activity{};
+
 //CORE FUNCTIONS
 //--------------
 BLITZ3D(void) BlitzcordCreateCore(cchar id)
@@ -9,9 +12,7 @@ BLITZ3D(void) BlitzcordCreateCore(cchar id)
 	int lowerID = longLower(convertedLong);
 
 	auto result = discord::Core::Create(mergeLong(upperID, lowerID), DiscordCreateFlags_NoRequireDiscord, &core);
-	core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {
-
-	});
+	core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {});
 }
 
 BLITZ3D(void) BlitzcordRunCallbacks()
@@ -38,16 +39,12 @@ BLITZ3D(void) BlitzcordSetActivityType(int type)
 
 BLITZ3D(void) BlitzcordClearActivity()
 {
-	core->ActivityManager().ClearActivity([](discord::Result result) {
-
-	});
+	core->ActivityManager().ClearActivity([](discord::Result result) {});
 }
 
 BLITZ3D(void) BlitzcordUpdateActivity()
 {
-	core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {
-
-	});
+	core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {});
 }
 
 //SMALL IMAGE FUNCTIONS
@@ -135,9 +132,12 @@ BLITZ3D(int) BlitzcordGetTimestampEndLower()
 }
 
 //UNIX TIMESTAMP FUNCTIONS
+//------------------------
 BLITZ3D(cchar) BlitzcordGetCurrentTimestamp()
 {
-	return std::to_string(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count()).c_str();
+	auto clockNow = std::chrono::system_clock::now();
+
+	return _strdup(std::to_string(std::chrono::duration_cast<std::chrono::seconds>(clockNow.time_since_epoch()).count()).c_str());
 }
 
 BLITZ3D(cchar) BlitzcordGetTimestampPlus(int hours, int minutes, int seconds)
@@ -145,7 +145,7 @@ BLITZ3D(cchar) BlitzcordGetTimestampPlus(int hours, int minutes, int seconds)
 	auto clockNow = std::chrono::system_clock::now();
 	auto clockAdded = clockNow + std::chrono::hours(hours) + std::chrono::minutes(minutes) + std::chrono::seconds(seconds);
 
-	return std::to_string(std::chrono::duration_cast<std::chrono::seconds>(clockAdded.time_since_epoch()).count()).c_str();
+	return _strdup(std::to_string(std::chrono::duration_cast<std::chrono::seconds>(clockAdded.time_since_epoch()).count()).c_str());
 }
 
 BLITZ3D(cchar) BlitzcordGetTimestampMinus(int hours, int minutes, int seconds)
@@ -153,10 +153,11 @@ BLITZ3D(cchar) BlitzcordGetTimestampMinus(int hours, int minutes, int seconds)
 	auto clockNow = std::chrono::system_clock::now();
 	auto clockSubstracted = clockNow - std::chrono::hours(hours) - std::chrono::minutes(minutes) - std::chrono::seconds(seconds);
 
-	return std::to_string(std::chrono::duration_cast<std::chrono::seconds>(clockSubstracted.time_since_epoch()).count()).c_str();
+	return _strdup(std::to_string(std::chrono::duration_cast<std::chrono::seconds>(clockSubstracted.time_since_epoch()).count()).c_str());
 }
 
 //LONG SPLITTING
+//--------------
 BLITZ3D(int) StringToUpperLong(cchar stringLong)
 {
 	return longUpper(atoll(stringLong));
@@ -169,7 +170,7 @@ BLITZ3D(int) StringToLowerLong(cchar stringLong)
 
 BLITZ3D(cchar) LongToString(int upperLong, int lowerLong)
 {
-	return std::to_string(mergeLong(upperLong, lowerLong)).c_str();
+	return _strdup(std::to_string(mergeLong(upperLong, lowerLong)).c_str());
 }
 
 int longUpper(uint64 value)

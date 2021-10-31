@@ -2,17 +2,12 @@
 
 #include "discord/discord.h"
 #include <string>
-#include <fstream>
-#include <iostream>
 #include <stdlib.h>
 #include <chrono>
 
 #define uint64 unsigned long long
 #define uint32 unsigned int
 #define cchar const char*
-
-discord::Core* core{};
-discord::Activity activity{};
 
 #define BLITZ3D(x) extern "C" __declspec(dllexport) x _stdcall
 
