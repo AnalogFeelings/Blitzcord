@@ -11,12 +11,15 @@ BLITZ3D(void) BlitzcordCreateCore(cchar id)
 	int upperID = longUpper(convertedLong);
 	int lowerID = longLower(convertedLong);
 
-	auto result = discord::Core::Create(mergeLong(upperID, lowerID), DiscordCreateFlags_NoRequireDiscord, &core);
+	discord::Result result = discord::Core::Create(mergeLong(upperID, lowerID), DiscordCreateFlags_NoRequireDiscord, &core);
+
+	if (core == nullptr) return;
 	core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {});
 }
 
 BLITZ3D(void) BlitzcordRunCallbacks()
 {
+	if (core == nullptr) return;
 	::core->RunCallbacks();
 }
 
@@ -24,26 +27,31 @@ BLITZ3D(void) BlitzcordRunCallbacks()
 //------------------
 BLITZ3D(void) BlitzcordSetActivityState(cchar state)
 {
+	if (core == nullptr) return;
 	activity.SetState(state);
 }
 
 BLITZ3D(void) BlitzcordSetActivityDetails(cchar details)
 {
+	if (core == nullptr) return;
 	activity.SetDetails(details);
 }
 
 BLITZ3D(void) BlitzcordSetActivityType(int type)
 {
+	if (core == nullptr) return;
 	activity.SetType((discord::ActivityType)type);
 }
 
 BLITZ3D(void) BlitzcordClearActivity()
 {
+	if (core == nullptr) return;
 	core->ActivityManager().ClearActivity([](discord::Result result) {});
 }
 
 BLITZ3D(void) BlitzcordUpdateActivity()
 {
+	if (core == nullptr) return;
 	core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {});
 }
 
@@ -51,21 +59,25 @@ BLITZ3D(void) BlitzcordUpdateActivity()
 //---------------------
 BLITZ3D(void) BlitzcordSetSmallImage(cchar image)
 {
+	if (core == nullptr) return;
 	activity.GetAssets().SetSmallImage(image);
 }
 
 BLITZ3D(void) BlitzcordSetSmallText(cchar text)
 {
+	if (core == nullptr) return;
 	activity.GetAssets().SetSmallText(text);
 }
 
 BLITZ3D(cchar) BlitzcordGetSmallImage()
 {
+	if (core == nullptr) return "";
 	return activity.GetAssets().GetSmallImage();
 }
 
 BLITZ3D(cchar) BlitzcordGetSmallText()
 {
+	if (core == nullptr) return "";
 	return activity.GetAssets().GetSmallText();
 }
 
@@ -73,21 +85,25 @@ BLITZ3D(cchar) BlitzcordGetSmallText()
 //---------------------
 BLITZ3D(void) BlitzcordSetLargeImage(cchar image)
 {
+	if (core == nullptr) return;
 	activity.GetAssets().SetLargeImage(image);
 }
 
 BLITZ3D(void) BlitzcordSetLargeText(cchar text)
 {
+	if (core == nullptr) return;
 	activity.GetAssets().SetLargeText(text);
 }
 
 BLITZ3D(cchar) BlitzcordGetLargeImage()
 {
+	if (core == nullptr) return "";
 	return activity.GetAssets().GetLargeImage();
 }
 
 BLITZ3D(cchar) BlitzcordGetLargeText()
 {
+	if (core == nullptr) return "";
 	return activity.GetAssets().GetLargeText();
 }
 
@@ -95,6 +111,7 @@ BLITZ3D(cchar) BlitzcordGetLargeText()
 //-------------------
 BLITZ3D(void) BlitzcordSetTimestampStart(cchar timestamp)
 {
+	if (core == nullptr) return;
 	long long convertedLong = atoll(timestamp);
 	int upperLong = longUpper(convertedLong);
 	int lowerLong = longLower(convertedLong);
@@ -104,6 +121,7 @@ BLITZ3D(void) BlitzcordSetTimestampStart(cchar timestamp)
 
 BLITZ3D(void) BlitzcordSetTimestampEnd(cchar timestamp)
 {
+	if (core == nullptr) return;
 	long long convertedLong = atoll(timestamp);
 	int upperLong = longUpper(convertedLong);
 	int lowerLong = longLower(convertedLong);
@@ -113,21 +131,25 @@ BLITZ3D(void) BlitzcordSetTimestampEnd(cchar timestamp)
 
 BLITZ3D(int) BlitzcordGetTimestampStartUpper()
 {
+	if (core == nullptr) return INT_MAX;
 	return longUpper(activity.GetTimestamps().GetStart());
 }
 
 BLITZ3D(int) BlitzcordGetTimestampStartLower()
 {
+	if (core == nullptr) return INT_MAX;
 	return longLower(activity.GetTimestamps().GetStart());
 }
 
 BLITZ3D(int) BlitzcordGetTimestampEndUpper()
 {
+	if (core == nullptr) return INT_MAX;
 	return longUpper(activity.GetTimestamps().GetEnd());
 }
 
 BLITZ3D(int) BlitzcordGetTimestampEndLower()
 {
+	if (core == nullptr) return INT_MAX;
 	return longLower(activity.GetTimestamps().GetEnd());
 }
 

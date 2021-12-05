@@ -4,6 +4,7 @@
 #include <string>
 #include <stdlib.h>
 #include <chrono>
+#include <limits>
 
 #define uint64 unsigned long long
 #define uint32 unsigned int
