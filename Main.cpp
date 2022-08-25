@@ -5,16 +5,13 @@ discord::Activity activity{};
 
 //CORE FUNCTIONS
 //--------------
-BLITZ3D(void) BlitzcordCreateCore(cchar id)
+BLITZ3D(int) BlitzcordCreateCore(cstring id)
 {
 	long long convertedLong = atoll(id);
-	int upperID = longUpper(convertedLong);
-	int lowerID = longLower(convertedLong);
 
-	discord::Result result = discord::Core::Create(mergeLong(upperID, lowerID), DiscordCreateFlags_NoRequireDiscord, &core);
+	discord::Result result = discord::Core::Create(convertedLong, DiscordCreateFlags_NoRequireDiscord, &core);
 
-	if (core == nullptr) return;
-	core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {});
+	return (int)result;
 }
 
 BLITZ3D(void) BlitzcordRunCallbacks()
@@ -25,13 +22,13 @@ BLITZ3D(void) BlitzcordRunCallbacks()
 
 //ACTIVITY FUNCTIONS
 //------------------
-BLITZ3D(void) BlitzcordSetActivityState(cchar state)
+BLITZ3D(void) BlitzcordSetActivityState(cstring state)
 {
 	if (core == nullptr) return;
 	activity.SetState(state);
 }
 
-BLITZ3D(void) BlitzcordSetActivityDetails(cchar details)
+BLITZ3D(void) BlitzcordSetActivityDetails(cstring details)
 {
 	if (core == nullptr) return;
 	activity.SetDetails(details);
@@ -57,25 +54,25 @@ BLITZ3D(void) BlitzcordUpdateActivity()
 
 //SMALL IMAGE FUNCTIONS
 //---------------------
-BLITZ3D(void) BlitzcordSetSmallImage(cchar image)
+BLITZ3D(void) BlitzcordSetSmallImage(cstring image)
 {
 	if (core == nullptr) return;
 	activity.GetAssets().SetSmallImage(image);
 }
 
-BLITZ3D(void) BlitzcordSetSmallText(cchar text)
+BLITZ3D(void) BlitzcordSetSmallText(cstring text)
 {
 	if (core == nullptr) return;
 	activity.GetAssets().SetSmallText(text);
 }
 
-BLITZ3D(cchar) BlitzcordGetSmallImage()
+BLITZ3D(cstring) BlitzcordGetSmallImage()
 {
 	if (core == nullptr) return "";
 	return activity.GetAssets().GetSmallImage();
 }
 
-BLITZ3D(cchar) BlitzcordGetSmallText()
+BLITZ3D(cstring) BlitzcordGetSmallText()
 {
 	if (core == nullptr) return "";
 	return activity.GetAssets().GetSmallText();
@@ -83,25 +80,25 @@ BLITZ3D(cchar) BlitzcordGetSmallText()
 
 //LARGE IMAGE FUNCTIONS
 //---------------------
-BLITZ3D(void) BlitzcordSetLargeImage(cchar image)
+BLITZ3D(void) BlitzcordSetLargeImage(cstring image)
 {
 	if (core == nullptr) return;
 	activity.GetAssets().SetLargeImage(image);
 }
 
-BLITZ3D(void) BlitzcordSetLargeText(cchar text)
+BLITZ3D(void) BlitzcordSetLargeText(cstring text)
 {
 	if (core == nullptr) return;
 	activity.GetAssets().SetLargeText(text);
 }
 
-BLITZ3D(cchar) BlitzcordGetLargeImage()
+BLITZ3D(cstring) BlitzcordGetLargeImage()
 {
 	if (core == nullptr) return "";
 	return activity.GetAssets().GetLargeImage();
 }
 
-BLITZ3D(cchar) BlitzcordGetLargeText()
+BLITZ3D(cstring) BlitzcordGetLargeText()
 {
 	if (core == nullptr) return "";
 	return activity.GetAssets().GetLargeText();
@@ -109,24 +106,20 @@ BLITZ3D(cchar) BlitzcordGetLargeText()
 
 //TIMESTAMP FUNCTIONS
 //-------------------
-BLITZ3D(void) BlitzcordSetTimestampStart(cchar timestamp)
+BLITZ3D(void) BlitzcordSetTimestampStart(cstring timestamp)
 {
 	if (core == nullptr) return;
 	long long convertedLong = atoll(timestamp);
-	int upperLong = longUpper(convertedLong);
-	int lowerLong = longLower(convertedLong);
 
-	activity.GetTimestamps().SetStart(mergeLong(upperLong, lowerLong));
+	activity.GetTimestamps().SetStart(convertedLong);
 }
 
-BLITZ3D(void) BlitzcordSetTimestampEnd(cchar timestamp)
+BLITZ3D(void) BlitzcordSetTimestampEnd(cstring timestamp)
 {
 	if (core == nullptr) return;
 	long long convertedLong = atoll(timestamp);
-	int upperLong = longUpper(convertedLong);
-	int lowerLong = longLower(convertedLong);
 
-	activity.GetTimestamps().SetEnd(mergeLong(upperLong, lowerLong));
+	activity.GetTimestamps().SetEnd(convertedLong);
 }
 
 BLITZ3D(int) BlitzcordGetTimestampStartUpper()
@@ -155,14 +148,14 @@ BLITZ3D(int) BlitzcordGetTimestampEndLower()
 
 //UNIX TIMESTAMP FUNCTIONS
 //------------------------
-BLITZ3D(cchar) BlitzcordGetCurrentTimestamp()
+BLITZ3D(cstring) BlitzcordGetCurrentTimestamp()
 {
 	auto clockNow = std::chrono::system_clock::now();
 
 	return _strdup(std::to_string(std::chrono::duration_cast<std::chrono::seconds>(clockNow.time_since_epoch()).count()).c_str());
 }
 
-BLITZ3D(cchar) BlitzcordGetTimestampPlus(int hours, int minutes, int seconds)
+BLITZ3D(cstring) BlitzcordGetTimestampPlus(int hours, int minutes, int seconds)
 {
 	auto clockNow = std::chrono::system_clock::now();
 	auto clockAdded = clockNow + std::chrono::hours(hours) + std::chrono::minutes(minutes) + std::chrono::seconds(seconds);
@@ -170,7 +163,7 @@ BLITZ3D(cchar) BlitzcordGetTimestampPlus(int hours, int minutes, int seconds)
 	return _strdup(std::to_string(std::chrono::duration_cast<std::chrono::seconds>(clockAdded.time_since_epoch()).count()).c_str());
 }
 
-BLITZ3D(cchar) BlitzcordGetTimestampMinus(int hours, int minutes, int seconds)
+BLITZ3D(cstring) BlitzcordGetTimestampMinus(int hours, int minutes, int seconds)
 {
 	auto clockNow = std::chrono::system_clock::now();
 	auto clockSubstracted = clockNow - std::chrono::hours(hours) - std::chrono::minutes(minutes) - std::chrono::seconds(seconds);
@@ -180,17 +173,17 @@ BLITZ3D(cchar) BlitzcordGetTimestampMinus(int hours, int minutes, int seconds)
 
 //LONG SPLITTING
 //--------------
-BLITZ3D(int) StringToUpperLong(cchar stringLong)
+BLITZ3D(int) StringToUpperLong(cstring stringLong)
 {
 	return longUpper(atoll(stringLong));
 }
 
-BLITZ3D(int) StringToLowerLong(cchar stringLong)
+BLITZ3D(int) StringToLowerLong(cstring stringLong)
 {
 	return longLower(atoll(stringLong));
 }
 
-BLITZ3D(cchar) LongToString(int upperLong, int lowerLong)
+BLITZ3D(cstring) LongToString(int upperLong, int lowerLong)
 {
 	return _strdup(std::to_string(mergeLong(upperLong, lowerLong)).c_str());
 }
